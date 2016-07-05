@@ -11,13 +11,11 @@ namespace Bilety
 
         public static string SprawdzDateWaznosci(KartaMiejska karta)
         {
-            string link = StworzLink(karta);
-            var html = new System.Net.WebClient().DownloadString(link);
-            string dataWaznosci = html.Substring(html.IndexOf("Data ko") +27, 10);
-            return dataWaznosci;
+            string adresUrl = StworzLink(karta);
+            string html = WczytajKodStrony(adresUrl);
+            return PobierzDateZeStrony(html);
 
         }
-
         private static string StworzLink(KartaMiejska karta)
         {
             return "http://www.kkm.krakow.pl/pl/sprawdz-waznosc-biletow-zapisanych-na-karcie/index,1.html?cityCardType=" +
@@ -25,6 +23,14 @@ namespace Bilety
                 karta.NrAlbumu + "&sprawdz_kkm=Sprawdź";
             //Wolski królem Polski
         }
-       
+        private static string WczytajKodStrony(string link)
+        {
+            return new System.Net.WebClient().DownloadString(link);
+        }
+        private static string PobierzDateZeStrony(string html)
+        {
+            return html.Substring(html.IndexOf("Data ko") + 27, 10);
+        }
+
     }
 }
