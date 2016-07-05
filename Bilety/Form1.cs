@@ -31,7 +31,7 @@ namespace Bilety
             KartaMiejska karta = new KartaMiejska();
             karta.NrAlbumu = textBox1.Text;
             karta.TypUczelni = comboBox1.SelectedValue.ToString();
-            textBox2.Text = PobierzDane.ZrobLink(karta);
+            textBox2.Text = PobierzDane.SprawdzDateWaznosci(karta);
         }
     }
 }
