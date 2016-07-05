@@ -23,6 +23,7 @@ namespace Bilety
             return "http://www.kkm.krakow.pl/pl/sprawdz-waznosc-biletow-zapisanych-na-karcie/index,1.html?cityCardType=" +
                 karta.TypUczelni + "&dateValidity =" + DateTime.Today.ToString("dd-MM-yyyy") + "&identityNumber=" +
                 karta.NrAlbumu + "&sprawdz_kkm=Sprawdź";
+            //Wolski królem Polski
         }
        
     }
