@@ -28,10 +28,13 @@ namespace Bilety
 
         private void button1_Click(object sender, EventArgs e)
         {
-            KartaMiejska karta = new KartaMiejska();
-            karta.NrAlbumu = textBox1.Text;
-            karta.TypUczelni = comboBox1.SelectedValue.ToString();
-            textBox2.Text = PobierzDane.SprawdzDateWaznosci(karta);
+            var karta = new KartaMiejska
+            {
+                NrAlbumu = textBox1.Text,
+                TypUczelni = comboBox1.SelectedValue.ToString()
+            };
+
+            textBox2.Text = PobierzDane.SprawdzDateWaznosciKarty(karta);
         }
     }
 }
