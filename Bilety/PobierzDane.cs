@@ -1,36 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace Bilety
 {
-    class PobierzDane
+    public class PobierzDane
     {
+        public static Func<KartaMiejska, string> SprawdzDateWaznosciKarty = k => PobierzDaneZeStrony(WczytajKodHtmlStrony(UtworzLink(k)));
 
-        public static string SprawdzDateWaznosci(KartaMiejska karta)
-        {
-            string adresUrl = StworzLink(karta);
-            string html = WczytajKodStrony(adresUrl);
-            return PobierzDateZeStrony(html);
-        }
+        private static readonly Func<KartaMiejska, string> UtworzLink = s => "http://www.kkm.krakow.pl/pl/sprawdz-waznosc-biletow-zapisanych-na-karcie/index,1.html?cityCardType=" +
+                s.TypUczelni + "&dateValidity =" + DateTime.Today.ToString("dd-MM-yyyy") + "&identityNumber=" +
+                s.NrAlbumu + "&sprawdz_kkm=Sprawdź";
 
-        private static string StworzLink(KartaMiejska karta)
-        {
-            return "http://www.kkm.krakow.pl/pl/sprawdz-waznosc-biletow-zapisanych-na-karcie/index,1.html?cityCardType=" +
-                karta.TypUczelni + "&dateValidity =" + DateTime.Today.ToString("dd-MM-yyyy") + "&identityNumber=" +
-                karta.NrAlbumu + "&sprawdz_kkm=Sprawdź";
-            //Wolski królem Polski
-        }
-        private static string WczytajKodStrony(string link)
-        {
-            return new System.Net.WebClient().DownloadString(link);
-        }
-        private static string PobierzDateZeStrony(string html)
-        {
-            return html.Substring(html.IndexOf("Data ko") + 27, 10);
-        }
+        private static readonly Func<string, string> WczytajKodHtmlStrony = s => new WebClient().DownloadString(s);
+
+        private static readonly Func<string, string> PobierzDaneZeStrony = s => s.Substring(s.IndexOf("Data ko") + 27, 10);
 
     }
 }
