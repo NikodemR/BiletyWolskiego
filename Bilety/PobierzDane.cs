@@ -14,6 +14,6 @@ namespace Bilety
         private static readonly Func<string, string> WczytajKodHtmlStrony = s => new WebClient().DownloadString(s);
 
         private static readonly Func<string, string> PobierzDaneZeStrony = s => s.Substring(s.IndexOf("Data ko") + 27, 10);
-
+        //
     }
 }
