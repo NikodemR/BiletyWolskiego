@@ -1,19 +1,29 @@
 ﻿using System;
-using System.Net;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Bilety
 {
-    public class PobierzDane
+    class PobierzDane
     {
-        public static Func<KartaMiejska, string> SprawdzDateWaznosciKarty = k => PobierzDaneZeStrony(WczytajKodHtmlStrony(UtworzLink(k)));
 
-        private static readonly Func<KartaMiejska, string> UtworzLink = k => "http://www.kkm.krakow.pl/pl/sprawdz-waznosc-biletow-zapisanych-na-karcie/index,1.html?cityCardType=" +
-                k.TypUczelni + "&dateValidity =" + DateTime.Today.ToString("dd-MM-yyyy") + "&identityNumber=" +
-                k.NrAlbumu + "&sprawdz_kkm=Sprawdź";
+        public static string SprawdzDateWaznosci(KartaMiejska karta)
+        {
+            string link = StworzLink(karta);
+            var html = new System.Net.WebClient().DownloadString(link);
+            string dataWaznosci = html.Substring(html.IndexOf("Data ko") +27, 10);
+            return dataWaznosci;
 
-        private static readonly Func<string, string> WczytajKodHtmlStrony = s => new WebClient().DownloadString(s);
+        }
 
-        private static readonly Func<string, string> PobierzDaneZeStrony = s => s.Substring(s.IndexOf("Data ko") + 27, 10);
-
+        private static string StworzLink(KartaMiejska karta)
+        {
+            return "http://www.kkm.krakow.pl/pl/sprawdz-waznosc-biletow-zapisanych-na-karcie/index,1.html?cityCardType=" +
+                karta.TypUczelni + "&dateValidity =" + DateTime.Today.ToString("dd-MM-yyyy") + "&identityNumber=" +
+                karta.NrAlbumu + "&sprawdz_kkm=Sprawdź";
+        }
+       
     }
 }
