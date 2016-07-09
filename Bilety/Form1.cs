@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
+using System.Web;
+using System.Net.Mail;
 
 namespace Bilety
 {
@@ -28,13 +30,27 @@ namespace Bilety
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var karta = new KartaMiejska
-            {
-                NrAlbumu = textBox1.Text,
-                TypUczelni = comboBox1.SelectedValue.ToString()
-            };
+            KartaMiejska karta = new KartaMiejska();
+            karta.NrAlbumu = textBox1.Text;
+            karta.TypUczelni = comboBox1.SelectedValue.ToString();
+            textBox2.Text = PobierzDane.SprawdzDateWaznosci(karta);
+            textBox3.Text = PobierzDane.ObliczIleDniZostalo(karta);
+            karta.DataWaznosci = textBox2.Text;
+            karta.IleDniZostalo = textBox3.Text;
 
-            textBox2.Text = PobierzDane.SprawdzDateWaznosciKarty(karta);
+            Wiadomosc.AdresMail = textBoxMail.Text;
+            MailMessage mail = new MailMessage("waznosc.kkm@gmail.com", Wiadomosc.AdresMail, "Przypomnienie o końcu ważności Karty Komunikacji Miejskiej.",
+                Wiadomosc.TrescWiadomosci(karta.DataWaznosci, karta.IleDniZostalo));
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+            client.Port = 587;
+            client.Credentials = new System.Net.NetworkCredential("waznosc.kkm@gmail.com", "kanarylubiadolary");
+            client.EnableSsl = true;
+
+            if (Int32.Parse(karta.IleDniZostalo) <= 30)
+            {
+                client.Send(mail);
+            }
         }
     }
 }
