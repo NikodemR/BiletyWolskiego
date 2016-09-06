@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
 
 namespace Bilety
 {
-    class PobierzDane
+    public class PobierzDane
     {
         public static bool CheckIfEqual(KartaMiejska karta)
         {
