@@ -73,9 +73,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Int32TextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Int32TextBox.cs" />
     <Compile Include="KartaMiejska.cs" />
     <Compile Include="PobierzDane.cs" />
     <Compile Include="Program.cs" />
@@ -116,15 +114,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DaneKlientowKKM.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DaneKlientowKKM_log.ldf">
-      <DependentUpon>DaneKlientowKKM.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
