@@ -16,20 +16,13 @@ using System.Data.Sql;
 
 namespace Bilety
 {
-    public class DataAccessLayer
+    class DataAccessLayer
     {
-        private static readonly string ConnectionString;
-
-        static DataAccessLayer()
-        {
-            //ConnectionString = ConfigurationManager.ConnectionStrings["BiletyCS"].ConnectionString;
-            ConnectionString =
-                "Server=tcp:szymonkl.database.windows.net,1433;Initial Catalog=KartaMiejska;Persist Security Info=False;User ID=kkmadmin;Password=password1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-        }
-
         public static void Insert(KartaMiejska karta)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            string cs = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\Jakub\\Documents\\Visual Studio 2015\\Projects\\Bilety\\Bilety\\DaneKlientowKKM.mdf\";Integrated Security=True;Connect Timeout=30";
+
+            using (SqlConnection connection = new SqlConnection(cs))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -45,9 +38,9 @@ namespace Bilety
                         connection.Open();
                         int recordsAffected = command.ExecuteNonQuery();
                     }
-                    catch (SqlException exception)
+                    catch (SqlException)
                     {
-                        throw new Exception(exception.Message);
+                        // error here
                     }
                     finally
                     {
@@ -59,9 +52,10 @@ namespace Bilety
 
         public static KartaMiejska GetFromDatabase(int Id)
         {
+            string cs = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\Jakub\\Documents\\Visual Studio 2015\\Projects\\Bilety\\Bilety\\DaneKlientowKKM.mdf\";Integrated Security=True;Connect Timeout=30";
             KartaMiejska karta = new KartaMiejska();
 
-            using (var conn = new SqlConnection(ConnectionString))
+            using (var conn = new SqlConnection(cs))
             using (var cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -82,7 +76,8 @@ namespace Bilety
         {
             List<KartaMiejska> FullRecordsList = new List<KartaMiejska>();
 
-            using (var conn = new SqlConnection(ConnectionString))
+            string cs = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\Jakub\\Documents\\Visual Studio 2015\\Projects\\Bilety\\Bilety\\DaneKlientowKKM.mdf\";Integrated Security=True;Connect Timeout=30";
+            using (var conn = new SqlConnection(cs))
             using (var cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -112,7 +107,9 @@ namespace Bilety
 
         private static void UpdateDataBase(KartaMiejska karta)
         {
-            using (var connection = new SqlConnection(ConnectionString))
+            string cs = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\Jakub\\Documents\\Visual Studio 2015\\Projects\\Bilety\\Bilety\\DaneKlientowKKM.mdf\";Integrated Security=True;Connect Timeout=30";
+
+            using (var connection = new SqlConnection(cs))
             using (var command = connection.CreateCommand())
             {
                 command.CommandText = "UPDATE DaneUzytkownikow SET DataWaznosci = @DataWaznosci Where Id = @Id";

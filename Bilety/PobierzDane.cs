@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data;
 
 namespace Bilety
 {
-    public class PobierzDane
+    class PobierzDane
     {
 
         public static string SprawdzDateWaznosci(KartaMiejska karta)
