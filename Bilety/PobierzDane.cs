@@ -4,21 +4,17 @@ namespace Bilety
 {
     public class PobierzDane
     {
-        public static bool CheckIfEqual(KartaMiejska karta)
-        {
-            return (DateTime.Parse(karta.DataWaznosci) == DateTime.Parse(SprawdzDateWaznosci(karta)));
-        }
 
         public static string SprawdzDateWaznosci(KartaMiejska karta)
         {
             return PobierzDateZeStrony(WczytajKodStrony(StworzLink(karta)));
         }
 
-        public static int ObliczIleDniZostalo (KartaMiejska karta)
+        public static string ObliczIleDniZostalo (KartaMiejska karta)
         {
-                DateTime aktualnaData = DateTime.Today;
-                DateTime dataWaznosci = DateTime.Parse(PobierzDateZeStrony(WczytajKodStrony(StworzLink(karta))));
-                return Convert.ToInt32((dataWaznosci - aktualnaData).TotalDays);
+            DateTime aktualnaData = DateTime.Today;
+            DateTime dataWaznosci = DateTime.Parse(PobierzDateZeStrony(WczytajKodStrony(StworzLink(karta))));
+            return (dataWaznosci - aktualnaData).TotalDays.ToString();
         }
 
         private static string StworzLink(KartaMiejska karta)
