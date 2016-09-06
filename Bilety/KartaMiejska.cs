@@ -2,10 +2,12 @@
 {
     public class KartaMiejska
     {
+        public int Id { get; set; }
         public string NrAlbumu { get; set; }
         public string TypUczelni { get; set; }
-        public  string IleDniZostalo { get; set; }
+        public int IleDniZostalo { get; set; }
         public string DataWaznosci { get; set; }
+        public string AdresMail { get; set; }
 
         public enum RodzajUczelni
         {
