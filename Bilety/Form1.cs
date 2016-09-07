@@ -10,9 +10,6 @@ using System.Windows.Forms;
 using System.Net;
 using System.Web;
 using System.Net.Mail;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Data.Sql;
 
 namespace Bilety
 {
@@ -21,7 +18,6 @@ namespace Bilety
         public Form1()
         {
             InitializeComponent();
-
             comboBox1.ValueMember = "Value";
             comboBox1.DisplayMember = "Text";
             List<object> lista = new List<object>();
@@ -32,44 +28,29 @@ namespace Bilety
             comboBox1.DataSource = lista;
         }
 
-        public KartaMiejska GetValues()
+        private void button1_Click(object sender, EventArgs e)
         {
             KartaMiejska karta = new KartaMiejska();
             karta.NrAlbumu = textBox1.Text;
             karta.TypUczelni = comboBox1.SelectedValue.ToString();
-            karta.AdresMail = textBoxMail.Text;
-            karta.DataWaznosci = PobierzDane.SprawdzDateWaznosci(karta);
-            karta.IleDniZostalo = PobierzDane.ObliczIleDniZostalo(karta);
-            return karta;
-        }
+            textBox2.Text = PobierzDane.SprawdzDateWaznosci(karta);
+            textBox3.Text = PobierzDane.ObliczIleDniZostalo(karta);
+            karta.DataWaznosci = textBox2.Text;
+            karta.IleDniZostalo = textBox3.Text;
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Wiadomosc.WyslijWiadomosc(GetValues());
-            }
-            catch
-            {
-                MessageBox.Show("Nie odnaleziono karty w systemie MPK. Prosimy o sprawdzenie poprawności wprowadzonych danych.");
-            }
-        }
+            Wiadomosc.AdresMail = textBoxMail.Text;
+            MailMessage mail = new MailMessage("waznosc.kkm@gmail.com", Wiadomosc.AdresMail, "Przypomnienie o końcu ważności Karty Komunikacji Miejskiej.",
+                Wiadomosc.TrescWiadomosci(karta.DataWaznosci, karta.IleDniZostalo));
 
-        private void dodajButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DataAccessLayer.Insert(GetValues());
-            }
-            catch
-            {
-                MessageBox.Show("Nie odnaleziono karty w systemie MPK. Prosimy o sprawdzenie poprawności wprowadzonych danych.");
-            }
-        }
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+            client.Port = 587;
+            client.Credentials = new System.Net.NetworkCredential("waznosc.kkm@gmail.com", "kanarylubiadolary");
+            client.EnableSsl = true;
 
-        private void checkAllButton_Click(object sender, EventArgs e)
-        {
-            DataAccessLayer.SendMailOrUpdateRecord(DataAccessLayer.GetFilteredCards(DataAccessLayer.GetAllCards()));
+            if (Int32.Parse(karta.IleDniZostalo) <= 30)
+            {
+                client.Send(mail);
+            }
         }
     }
 }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new Bilety.Int32TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,8 +40,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxMail = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.dodajButton = new System.Windows.Forms.Button();
-            this.checkAllButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -98,7 +96,7 @@
             // 
             this.button1.Location = new System.Drawing.Point(122, 230);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 23);
+            this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 6;
             this.button1.Text = "Sprawdź";
             this.button1.UseVisualStyleBackColor = true;
@@ -145,33 +143,11 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "Mail użytkownika:";
             // 
-            // dodajButton
-            // 
-            this.dodajButton.Location = new System.Drawing.Point(122, 260);
-            this.dodajButton.Name = "dodajButton";
-            this.dodajButton.Size = new System.Drawing.Size(106, 23);
-            this.dodajButton.TabIndex = 12;
-            this.dodajButton.Text = "Dodaj do bazy";
-            this.dodajButton.UseVisualStyleBackColor = true;
-            this.dodajButton.Click += new System.EventHandler(this.dodajButton_Click);
-            // 
-            // checkAllButton
-            // 
-            this.checkAllButton.Location = new System.Drawing.Point(124, 289);
-            this.checkAllButton.Name = "checkAllButton";
-            this.checkAllButton.Size = new System.Drawing.Size(104, 23);
-            this.checkAllButton.TabIndex = 13;
-            this.checkAllButton.Text = "Sprawdź wszystkie";
-            this.checkAllButton.UseVisualStyleBackColor = true;
-            this.checkAllButton.Click += new System.EventHandler(this.checkAllButton_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(431, 370);
-            this.Controls.Add(this.checkAllButton);
-            this.Controls.Add(this.dodajButton);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBoxMail);
             this.Controls.Add(this.label5);
@@ -192,6 +168,8 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label2;
@@ -203,9 +181,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxMail;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button dodajButton;
-        private System.Windows.Forms.Button checkAllButton;
-        private Int32TextBox textBox1;
     }
 }
 
